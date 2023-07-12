@@ -25,17 +25,17 @@ jobs:
     uses: ./.github/workflows/PR_approve_deploy_dev.yml
 
   qa_pr_munits:
-    if: contains(${{ github.event.pull_request.head.ref }}, 'qa')
+    if: ${{ github.event.pull_request.head.ref }} = 'qa'
     uses: ./.github/workflows/PR_approve_deploy_dev.yml
 
   uat_pr_munits:
-    if: contains(${{ github.event.pull_request.head.ref }}, 'uat')
+    if: ${{ github.event.pull_request.head.ref }} = 'uat'
     uses: ./.github/workflows/PR_approve_deploy_dev.yml
 
   staging_pr_munits:
-    if: contains(${{ github.event.pull_request.head.ref }}, 'staging')
+    if: ${{ github.event.pull_request.head.ref }} = 'staging'
     uses: ./.github/workflows/PR_approve_deploy_dev.yml
 
   prod_pr_munits:
-    if: contains(${{ github.event.pull_request.head.ref }}, 'prod')
+    if: ${{ github.event.pull_request.head.ref }} = 'prod'
     uses: ./.github/workflows/PR_approve_deploy_dev.yml
