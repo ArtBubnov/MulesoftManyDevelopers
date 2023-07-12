@@ -17,9 +17,11 @@ jobs:
         run: |
           echo ${{ github.event.pull_request.base.ref }}
           echo ${{ github.event.pull_request.head.ref }}
+          TEST=${{ github.event.pull_request.head.ref }}
+          echo $TEST
 
   dev_pr_munits:
-    if: contains(${{ github.event.pull_request.head.ref }}, 'dev')
+    if: ${{ github.event.pull_request.head.ref }} = 'dev'
     uses: ./.github/workflows/PR_approve_deploy_dev.yml
 
   qa_pr_munits:
