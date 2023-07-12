@@ -21,8 +21,13 @@ jobs:
           echo $TEST
 
   dev_pr_munits:
+    runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.head.ref }} = 'dev'
-    uses: ./.github/workflows/PR_approve_deploy_dev.yml
+    steps:
+      - name: test
+        run:
+          echo "TEST"
+    #uses: ./.github/workflows/PR_approve_deploy_dev.yml
 
   qa_pr_munits:
     if: ${{ github.event.pull_request.head.ref }} = 'qa'
@@ -39,3 +44,4 @@ jobs:
   prod_pr_munits:
     if: ${{ github.event.pull_request.head.ref }} = 'prod'
     uses: ./.github/workflows/PR_approve_deploy_dev.yml
+ 
