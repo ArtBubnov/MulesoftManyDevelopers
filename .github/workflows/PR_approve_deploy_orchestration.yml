@@ -22,15 +22,17 @@ jobs:
 
   dev_pr_munits:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.head.ref }} == 'dev'
+    if: github.event.pull_request.head.ref == 'dev'
     steps:
       - name: test
         run:
           echo $TEST
-    #uses: ./.github/workflows/PR_approve_deploy_dev.yml
+
+      - name: test2
+        uses: ./.github/workflows/PR_approve_deploy_dev.yml
 
   qa_pr_munits:
-    if: ${{ github.event.pull_request.head.ref }} == 'qa'
+    if: github.event.pull_request.head.ref == 'qa'
     uses: ./.github/workflows/PR_approve_deploy_dev.yml
 
   uat_pr_munits:
