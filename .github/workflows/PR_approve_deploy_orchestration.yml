@@ -1,0 +1,42 @@
+#this scenario will be executed in case of PR approve
+name: pr approve deploy ochestration logic
+
+#depends on the target branch one of the following scenarios will be executed:
+on:
+  pull_request_review:
+    types: [submitted]
+
+
+
+jobs:
+
+  logger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: logger
+        run: |
+          echo "Target branch is: "
+          echo ${{ github.event.pull_request.base.ref }}
+          echo "Source branch is: "
+          echo ${{ github.event.pull_request.head.ref }}
+
+  dev_pr_munits:
+    if: github.event.pull_request.base.ref == 'dev'
+    uses: ./.github/workflows/PR_approve_deploy_dev.yml
+
+  qa_pr_munits:
+    if: github.event.pull_request.base.ref == 'qa'
+    uses: ./.github/workflows/PR_approve_deploy_dev.yml
+
+  uat_pr_munits:
+    if: github.event.pull_request.base.ref == 'uat'
+    uses: ./.github/workflows/PR_approve_deploy_dev.yml
+
+  staging_pr_munits:
+    if: github.event.pull_request.base.ref == 'staging'
+    uses: ./.github/workflows/PR_approve_deploy_dev.yml
+
+  prod_pr_munits:
+    if: github.event.pull_request.base.ref == 'prod'
+    uses: ./.github/workflows/PR_approve_deploy_dev.yml
+ 
