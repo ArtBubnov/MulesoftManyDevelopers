@@ -18,5 +18,6 @@ jobs:
           echo ${{ github.event.pull_request.base.ref }}
           echo ${{ github.event.pull_request.head.ref }}
 
-
-
+  dev_pr_munits:
+    if: contains(${{ github.event.pull_request.head.ref }}, 'dev')
+    uses: ./.github/workflows/pr_run_munits_dev.yml

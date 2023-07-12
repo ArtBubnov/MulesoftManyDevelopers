@@ -1,10 +1,9 @@
-#this action will be triggered in case a new logic has been pushed to the DEV branch
 name: deploy project to dev env
 
-#depends on the target branch one of the Merge event:
+#this scenario can be triggered only by pr_run_munits_orchestration scenario
 on:
-  pull_request_review:
-    types: [submitted]
+  workflow_call:
+
 
 jobs:
   dev:
@@ -21,8 +20,6 @@ jobs:
       WORKERS_TYPE: ${{ vars.WORKERS_TYPE_GITHUB_VALUE }}
       OBJECT_STORE_V2: ${{ vars.OBJECT_STORE_V2_GITHUB_VALUE }}
       REGION: ${{ vars.REGION_GITHUB_VALUE }}
-      BUSINESS_GROUP_ID: ${{ secrets.BUSINESS_GROUP_ID }}
-      URI: ${{ vars.URI }}
     #POM cloudHubDeployment --> <properties>
       prop_01_pom_var: ${{ vars.DEV_PROP_01_POM_VAR_GITHUB_VALUE }}
       prop_02_pom_var: ${{ vars.DEV_PROP_02_POM_VAR_GITHUB_VALUE }}
@@ -31,26 +28,27 @@ jobs:
       prop_05_pom_var: ${{ vars.DEV_PROP_05_POM_VAR_GITHUB_VALUE }}
 
     steps:
-      #This step checks-out your repository under $GITHUB_WORKSPACE
+      #This action checks-out your repository under $GITHUB_WORKSPACE
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: logger
-        run: |
-          echo "branches has been mertged"
-          echo 'the following is targer branch: '$GITHUB_REF_NAME
 
       #This step performs:
       # 1. add new dependencies in cache
       # 2. retrieve existing data from cache
-      - name: Checking Cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven- 
+      - name: logger
+        run: |
+          echo "branches has been mertged"
+          echo 'the following is targer branch: '${{ github.event.pull_request.head.ref }}
+          echo "THIS iS DEV"
+      
+#      - name: Checking Cache
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.m2/repository
+#          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+#          restore-keys: |
+#            ${{ runner.os }}-maven- 
 
       #This step deploys data to DEV Mulesoft env
-      - name: DEV. Deploy mulesoft project
-        run:  mvn clean deploy "-DmuleDeploy"
+      #- name: Build with Maven
+        #run:  mvn clean deploy "-DmuleDeploy" "-Denv=dev" "-DskipMunitBoolean=true" -s .maven/settings.xml

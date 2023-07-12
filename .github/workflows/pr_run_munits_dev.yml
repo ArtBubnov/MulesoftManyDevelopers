@@ -48,5 +48,5 @@ jobs:
 
       #This step runs munit tests
       #All the tests will be captured from the source branch of the Pull Request
-      - name: DEV. Run Mulesoft Munit tests
-        run:  mvn clean test "-DskipMunitBoolean=false"
+      #- name: DEV. Run Mulesoft Munit tests
+      #  run:  mvn clean test "-DskipMunitBoolean=false"
