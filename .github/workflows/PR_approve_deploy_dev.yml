@@ -40,15 +40,3 @@ jobs:
           echo "branches has been mertged"
           echo 'the following is targer branch: '${{ github.event.pull_request.head.ref }}
           echo "THIS iS DEV"
-      
-#      - name: Checking Cache
-#        uses: actions/cache@v3
-#        with:
-#          path: ~/.m2/repository
-#          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-#          restore-keys: |
-#            ${{ runner.os }}-maven- 
-
-      #This step deploys data to DEV Mulesoft env
-      #- name: Build with Maven
-        #run:  mvn clean deploy "-DmuleDeploy" "-Denv=dev" "-DskipMunitBoolean=true" -s .maven/settings.xml
