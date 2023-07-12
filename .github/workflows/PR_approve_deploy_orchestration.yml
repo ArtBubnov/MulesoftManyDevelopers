@@ -15,8 +15,8 @@ jobs:
     steps:
       - name: logger
         run: |
-          echo $GITHUB_BASE_REF
-          echo $GITHUB_HEAD_REF
+          echo ${{ github.event.pull_request.base.ref }}
+          echo ${{ github.event.pull_request.head.ref }}
 
 
 
