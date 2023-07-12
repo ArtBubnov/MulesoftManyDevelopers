@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: test
         run:
-          echo "TEST"
+          echo $TEST
     #uses: ./.github/workflows/PR_approve_deploy_dev.yml
 
   qa_pr_munits:
