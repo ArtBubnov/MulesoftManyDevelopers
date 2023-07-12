@@ -1,0 +1,22 @@
+#this scenario will be executed in case of PR approve
+name: pr approve deploy ochestration logic
+
+#depends on the target branch one of the following scenarios will be executed:
+on:
+  pull_request_review:
+    types: [submitted]
+
+
+
+jobs:
+
+  logger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: logger
+        run: |
+          echo $GITHUB_BASE_REF
+          echo $GITHUB_HEAD_REF
+
+
+
